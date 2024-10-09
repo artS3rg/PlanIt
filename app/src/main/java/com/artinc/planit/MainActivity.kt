@@ -28,25 +28,25 @@ class MainActivity : AppCompatActivity() {
 
         createBtn.setOnClickListener {
             Toast
-                .makeText(this@MainActivity, "Создание новой задачи", Toast.LENGTH_LONG)
+                .makeText(this@MainActivity, "Создание новой задачи", Toast.LENGTH_SHORT)
                 .show()
         }
 
         menuIconBtn.setOnClickListener {
             Toast
-                .makeText(this@MainActivity, "Открытие меню", Toast.LENGTH_LONG)
+                .makeText(this@MainActivity, "Открытие меню", Toast.LENGTH_SHORT)
                 .show()
         }
 
         gridIconBtn.setOnClickListener {
             Toast
-                .makeText(this@MainActivity, "Изменение вида на сетку", Toast.LENGTH_LONG)
+                .makeText(this@MainActivity, "Изменение вида на сетку", Toast.LENGTH_SHORT)
                 .show()
         }
 
         columnIconBtn.setOnClickListener {
             Toast
-                .makeText(this@MainActivity, "Изменение вида на колонку", Toast.LENGTH_LONG)
+                .makeText(this@MainActivity, "Изменение вида на колонку", Toast.LENGTH_SHORT)
                 .show()
         }
     }

@@ -17,7 +17,9 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="start"
-            android:foreground="?attr/selectableItemBackground"/>
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/menu_24"
+            android:backgroundTint="@color/white"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -27,13 +29,18 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="start"
-                android:foreground="?attr/selectableItemBackground"/>
+                android:foreground="?attr/selectableItemBackground"
+                android:src="@drawable/grid_view_24"
+                android:backgroundTint="@color/white"
+                android:layout_marginEnd="10dp"/>
             <ImageButton
                 android:id="@+id/columnBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="start"
-                android:foreground="?attr/selectableItemBackground"/>
+                android:foreground="?attr/selectableItemBackground"
+                android:src="@drawable/table_rows_24"
+                android:backgroundTint="@color/white"/>
         </LinearLayout>
     </FrameLayout>
 
@@ -48,6 +55,7 @@
         app:cornerRadius="30dp"
         android:padding="0dp"
         android:layout_margin="20dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:backgroundTint="@color/blue"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
