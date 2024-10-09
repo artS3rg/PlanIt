@@ -21,10 +21,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val createBtn = findViewById<Button>(R.id.createTask)
+        val createBtn = findViewById<ImageButton>(R.id.createTask)
         val menuIconBtn = findViewById<ImageButton>(R.id.menuBtn)
-        val gridIconBtn = findViewById<ImageButton>(R.id.gridBtn)
-        val columnIconBtn = findViewById<ImageButton>(R.id.columnBtn)
+        val settingsIconBtn = findViewById<ImageButton>(R.id.settingsBtn)
 
         createBtn.setOnClickListener {
             Toast
@@ -38,15 +37,9 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
-        gridIconBtn.setOnClickListener {
+        settingsIconBtn.setOnClickListener {
             Toast
-                .makeText(this@MainActivity, "Изменение вида на сетку", Toast.LENGTH_SHORT)
-                .show()
-        }
-
-        columnIconBtn.setOnClickListener {
-            Toast
-                .makeText(this@MainActivity, "Изменение вида на колонку", Toast.LENGTH_SHORT)
+                .makeText(this@MainActivity, "Найстройки", Toast.LENGTH_SHORT)
                 .show()
         }
     }
