@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_stat"
+            android:title="Statistics"
+            android:icon="@drawable/round_analytics" />
+    </group>
+    <group android:checkableBehavior="none">
+        <item
+            android:title="12 jule 2024"
+            android:icon="@null"/>
+    </group>
+</menu>

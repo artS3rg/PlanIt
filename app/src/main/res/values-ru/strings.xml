@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Спланируй Это</string>
+    <string name="new_task_btn">Создать</string>
+    <string name="open">Открыть</string>
+    <string name="close">Закрыть</string>
+    <string name="settings_title">Настройки</string>
+    <string name="theme_title">Ночная тема</string>
+    <string name="help_title">Помощь</string>
+    <string name="privacy_policy_text">Политика конфиденциальности</string>
+    <string name="creating_a_new_task_title">Создание новой задачи</string>
+    <string name="enter_the_title">Введите название</string>
+    <string name="enter_the_description">Введите описание</string>
+    <string name="set_the_priority">Установите приоритет</string>
+    <string name="create_btn">Создать</string>
+    <string name="main_start_text">У вас пока нет задач. Создайте с помощью нижней кнопки</string>
 </resources>

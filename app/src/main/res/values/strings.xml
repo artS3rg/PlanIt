@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">PlanIt</string>
+    <string name="new_task_btn">Create</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="settings_title">Settings</string>
+    <string name="theme_title">Night theme</string>
+    <string name="help_title">Help</string>
+    <string name="privacy_policy_text">Privacy policy</string>
+    <string name="creating_a_new_task_title">Creating a new task</string>
+    <string name="enter_the_description">Enter the description</string>
+    <string name="enter_the_title">Enter the title</string>
+    <string name="set_the_priority">Set the priority</string>
+    <string name="create_btn">Create</string>
+    <string name="main_start_text">You don\'t have any tasks yet. Create using the bottom button</string>
 </resources>
