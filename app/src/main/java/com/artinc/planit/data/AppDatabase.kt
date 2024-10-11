@@ -6,20 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.artinc.planit.Task
 
-@Database(entities = [Task::class], version = 1)
-abstract class AppDatabase : RoomDatabase() {
+@Database(entities = [Task::class], version = 1, exportSchema = false)
+abstract class TaskDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
 
     companion object {
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var INSTANCE: TaskDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
+        fun getDatabase(context: Context): TaskDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
-                    "app_database"
+                    TaskDatabase::class.java,
+                    "task_database"
                 ).build()
                 INSTANCE = instance
                 instance

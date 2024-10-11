@@ -11,14 +11,11 @@ import com.artinc.planit.Task
 @Dao
 interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(note: Task)
+    suspend fun insert(task: Task)
 
-    @Update
-    suspend fun update(note: Task)
-
-    @Delete
-    suspend fun delete(note: Task)
-
-    @Query("SELECT * FROM tasks ORDER BY taskPriority DESC")
+    @Query("SELECT * FROM tasks ORDER BY taskPriority DESC, taskIsCompl ASC, createdDate ASC")
     suspend fun getAllTasks(): List<Task>
+
+    @Query("SELECT DISTINCT strftime('%Y-%m-%d', createdDate / 1000, 'unixepoch') FROM tasks")
+    suspend fun getDistinctCreationDates(): List<String>
 }

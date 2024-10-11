@@ -9,12 +9,21 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.artinc.planit.data.TaskViewModel
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
 
     private var bottomSheet: NewTaskFragment? = null
+
+    //private lateinit var taskViewModel: TaskViewModel
+    //private lateinit var recyclerView: RecyclerView
+    //private lateinit var adapter: TasksAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Загружаем настройки перед установкой макета
@@ -37,6 +46,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // Работа со списком
+//        recyclerView = findViewById(R.id.recyclerView)
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+//
+//        taskViewModel = ViewModelProvider(this)[TaskViewModel::class.java]
+        //
+
+        // Работа с меню
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
         val menuIconBtn = findViewById<ImageButton>(R.id.menuBtn)
@@ -52,7 +69,9 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawers()  // Закрытие меню после выбора
             true
         }
+        //
 
+        // Добавление новой задачи
         val addBtn = findViewById<ImageButton>(R.id.addTask)
         addBtn.setOnClickListener {
             if (bottomSheet == null) {
@@ -60,7 +79,9 @@ class MainActivity : AppCompatActivity() {
             }
             bottomSheet?.show(supportFragmentManager, bottomSheet?.tag)
         }
+        //
 
+        // Открытие меню
         menuIconBtn.setOnClickListener {
             if (!drawerLayout.isDrawerOpen(navigationView)) {
                 drawerLayout.openDrawer(navigationView)
@@ -69,6 +90,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Открытие настроек
         val settingsIconBtn = findViewById<ImageButton>(R.id.settingsBtn)
         settingsIconBtn.setOnClickListener {
             val settingsIntent = Intent(this, SettingsActivity::class.java)
@@ -76,6 +98,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Обработчик кнопки назад
     override fun onBackPressed() {
         // Проверяем, открыт ли BottomSheetDialogFragment
         if (bottomSheet?.isVisible == true) {
