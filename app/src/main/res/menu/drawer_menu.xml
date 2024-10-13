@@ -3,12 +3,7 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_stat"
-            android:title="Statistics"
+            android:title="@string/statistics_title"
             android:icon="@drawable/round_analytics" />
-    </group>
-    <group android:checkableBehavior="none">
-        <item
-            android:title="12 jule 2024"
-            android:icon="@null"/>
     </group>
 </menu>

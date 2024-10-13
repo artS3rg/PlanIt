@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/settings">
+
         <TextView
             android:id="@+id/settings_title"
             android:layout_width="wrap_content"
@@ -37,7 +38,7 @@
                 android:backgroundTint="?attr/colorContainer"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:orientation="vertical">
                 <TextView
@@ -49,8 +50,6 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="5dp"/>
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_theme"
@@ -76,7 +75,7 @@
                 android:backgroundTint="?attr/colorContainer"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:orientation="vertical">
                 <TextView
@@ -88,9 +87,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    android:layout_marginTop="10dp"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -112,6 +109,21 @@
                     android:drawablePadding="8dp"
                     android:drawableLeft="@drawable/round_verified_user"/>
             </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/vers_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/help_group"
+            android:layout_marginVertical="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="parent"
+                android:gravity="center"
+                android:text="@string/version_text"
+                android:textColor="?attr/colorPrimaryVariant"/>
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

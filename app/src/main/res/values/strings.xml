@@ -13,4 +13,16 @@
     <string name="set_the_priority">Set the priority</string>
     <string name="create_btn">Create</string>
     <string name="main_start_text">You don\'t have any tasks yet. Create using the bottom button</string>
+    <string name="statistics_title">Statistics</string>
+    <string name="blue_btn">Blue</string>
+    <string name="green_btn">Green</string>
+    <string name="yellow_btn">Yellow</string>
+    <string name="red_btn">Red</string>
+    <string name="statistics_activity_title">Statistics</string>
+    <string name="using_colors_text">Using colors</string>
+    <string name="task_completion_text">Task completion</string>
+    <string name="the_busiest_day_text">The busiest day</string>
+    <string name="priority_by_tasks_text">Priority by tasks</string>
+    <string name="description_task_text">Description</string>
+    <string name="version_text" translatable="false">PlanIt for android v1.0</string>
 </resources>

@@ -14,4 +14,15 @@
     <string name="set_the_priority">Установите приоритет</string>
     <string name="create_btn">Создать</string>
     <string name="main_start_text">У вас пока нет задач. Создайте с помощью нижней кнопки</string>
+    <string name="statistics_title">Статистика</string>
+    <string name="blue_btn">Синий</string>
+    <string name="green_btn">Зеленый</string>
+    <string name="yellow_btn">Желтый</string>
+    <string name="red_btn">Красный</string>
+    <string name="statistics_activity_title">Статистика</string>
+    <string name="using_colors_text">Использование цветов</string>
+    <string name="task_completion_text">Выполненность задач</string>
+    <string name="the_busiest_day_text">Самый загруженный день</string>
+    <string name="priority_by_tasks_text">Приоритетность по задачам</string>
+    <string name="description_task_text">Описание</string>
 </resources>

@@ -2,7 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/frag_new_task">
 
     <LinearLayout
@@ -39,7 +39,8 @@
             android:padding="10dp"
             android:inputType="text"
             android:focusable="true"
-            android:focusableInTouchMode="true"/>
+            android:focusableInTouchMode="true"
+            android:maxLength="30"/>
 
         <TextView
             android:id="@+id/priority"
@@ -54,26 +55,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <ImageButton
+                android:id="@+id/imageButtonPriority1"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/star_outline"
+                android:background="@drawable/star"
                 android:backgroundTint="@color/blue"
-                android:contentDescription="TODO"
                 android:foreground="?attr/selectableItemBackground"/>
             <ImageButton
+                android:id="@+id/imageButtonPriority2"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:background="@drawable/star_outline"
                 android:backgroundTint="@color/blue"
                 android:layout_marginHorizontal="20dp"
-                android:contentDescription="TODO"
                 android:foreground="?attr/selectableItemBackground"/>
             <ImageButton
+                android:id="@+id/imageButtonPriority3"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/star"
+                android:background="@drawable/star_outline"
                 android:backgroundTint="@color/blue"
-                android:contentDescription="TODO"
                 android:foreground="?attr/selectableItemBackground"/>
         </LinearLayout>
 
@@ -92,6 +93,47 @@
             android:overScrollMode="always"
             android:focusable="true"
             android:focusableInTouchMode="true"/>
+
+        <!-- Выбор цвета задачи через RadioButton -->
+        <RadioGroup
+            android:id="@+id/radioGroupColors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioButtonBlue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:buttonTint="@color/blue"
+                android:layout_marginEnd="10dp"
+                android:text="@string/blue_btn" />
+
+            <RadioButton
+                android:id="@+id/radioButtonGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/green"
+                android:layout_marginEnd="10dp"
+                android:text="@string/green_btn" />
+
+            <RadioButton
+                android:id="@+id/radioButtonYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/yellow"
+                android:layout_marginEnd="10dp"
+                android:text="@string/yellow_btn" />
+
+            <RadioButton
+                android:id="@+id/radioButtonRed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/red"
+                android:text="@string/red_btn" />
+        </RadioGroup>
 
         <Button
             android:id="@+id/createBtn"

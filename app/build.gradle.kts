@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("com.google.devtools.ksp") version "1.9.0-1.0.12"
+    id("kotlin-parcelize")
 }
 
 android {
@@ -63,6 +64,9 @@ dependencies {
     testImplementation(libs.androidx.room.testing)
     // optional - Paging 3 Integration
     implementation(libs.androidx.room.paging)
+
+    implementation("com.github.blackfizz:eazegraph:1.2.2@aar")
+    implementation("com.nineoldandroids:library:2.4.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

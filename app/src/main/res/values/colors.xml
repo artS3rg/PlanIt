@@ -2,10 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue">#1888FF</color>
-    <color name="red">#E10707</color>
-    <color name="yellow">#EDB200</color>
-    <color name="green">#228507</color>
+    <color name="blue">#FF1888FF</color>
+    <color name="red">#FFE10707</color>
+    <color name="yellow">#FFEDB200</color>
+    <color name="green">#FF228507</color>
     <color name="back_night">#191919</color>
     <color name="back_day">#F3F3F3</color>
     <color name="gray">#686868</color>

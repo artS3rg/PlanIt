@@ -1,18 +1,38 @@
 package com.artinc.planit.data
 
+import androidx.lifecycle.LiveData
 import com.artinc.planit.Task
 
 class TaskRepository(private val taskDao: TaskDao) {
-
-    suspend fun insert(task: Task) {
-        taskDao.insert(task)
+    fun getTasksByDate(startOfDay: Long, endOfDay: Long): LiveData<List<Task>> {
+        return taskDao.getTasksByDate(startOfDay, endOfDay)
     }
 
-    suspend fun getAllTasks(): List<Task> {
-        return taskDao.getAllTasks()
+    fun getAllTaskDates(): LiveData<List<String>> {
+        return taskDao.getAllTaskDates()
     }
 
-    suspend fun getDistinctCreationDates() : List<String>{
-        return taskDao.getDistinctCreationDates()
+    fun getBusiestDay() : Long {
+        return taskDao.getBusiestDay()
+    }
+
+    fun getTaskCountByColor() : List<ColorCount> {
+        return taskDao.getTaskCountByColor()
+    }
+
+    fun getCompletedTaskCount() : Int {
+        return taskDao.getCompletedTaskCount()
+    }
+
+    fun getIncompleteTaskCount() : Int {
+        return taskDao.getIncompleteTaskCount()
+    }
+
+    suspend fun insertTask(task: Task) {
+        taskDao.insertTask(task)
+    }
+
+    suspend fun updateTask(task: Task) {
+        taskDao.updateTask(task)
     }
 }
