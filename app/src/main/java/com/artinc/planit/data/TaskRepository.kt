@@ -12,20 +12,32 @@ class TaskRepository(private val taskDao: TaskDao) {
         return taskDao.getAllTaskDates()
     }
 
-    fun getBusiestDay() : Long {
+    fun getBusiestDay() : LiveData<Long> {
         return taskDao.getBusiestDay()
     }
 
-    fun getTaskCountByColor() : List<ColorCount> {
+    fun getTaskCountByColor() : LiveData<List<ColorCount>> {
         return taskDao.getTaskCountByColor()
     }
 
-    fun getCompletedTaskCount() : Int {
+    fun getCompletedTaskCount() : LiveData<Int> {
         return taskDao.getCompletedTaskCount()
     }
 
-    fun getIncompleteTaskCount() : Int {
+    fun getIncompleteTaskCount() : LiveData<Int> {
         return taskDao.getIncompleteTaskCount()
+    }
+
+    fun getFirstPriorCount() : LiveData<Int> {
+        return taskDao.getFirstPriorCount()
+    }
+
+    fun getSecondPriorCount() : LiveData<Int> {
+        return taskDao.getSecondPriorCount()
+    }
+
+    fun getThirdPriorCount() : LiveData<Int> {
+        return taskDao.getThirdPriorCount()
     }
 
     suspend fun insertTask(task: Task) {

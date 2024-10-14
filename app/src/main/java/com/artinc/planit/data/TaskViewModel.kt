@@ -18,6 +18,34 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
         return repository.getAllTaskDates()
     }
 
+    fun getTaskCountByColor(): LiveData<List<ColorCount>> {
+        return repository.getTaskCountByColor()
+    }
+
+    fun getBusiestDay() : LiveData<Long> {
+        return repository.getBusiestDay()
+    }
+
+    fun getCompletedTaskCount(): LiveData<Int> {
+        return repository.getCompletedTaskCount()
+    }
+
+    fun getIncompleteTaskCount(): LiveData<Int> {
+        return repository.getIncompleteTaskCount()
+    }
+
+    fun getFirstPriorCount(): LiveData<Int> {
+        return repository.getFirstPriorCount()
+    }
+
+    fun getSecondPriorCount(): LiveData<Int> {
+        return repository.getSecondPriorCount()
+    }
+
+    fun getThirdPriorCount(): LiveData<Int> {
+        return repository.getThirdPriorCount()
+    }
+
     private fun getStartOfDay(date: Long): Long {
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = date

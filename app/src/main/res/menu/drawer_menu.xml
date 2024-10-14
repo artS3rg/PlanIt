@@ -5,5 +5,9 @@
             android:id="@+id/nav_stat"
             android:title="@string/statistics_title"
             android:icon="@drawable/round_analytics" />
+        <item
+            android:id="@+id/nav_sett"
+            android:title="@string/settings_title"
+            android:icon="@drawable/round_settings" />
     </group>
 </menu>

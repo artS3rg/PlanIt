@@ -17,16 +17,25 @@ interface TaskDao {
     fun getAllTaskDates(): LiveData<List<String>>
 
     @Query("SELECT createdAt FROM tasks GROUP BY createdAt ORDER BY COUNT(*) DESC LIMIT 1")
-    fun getBusiestDay() : Long
+    fun getBusiestDay() : LiveData<Long>
 
     @Query("SELECT color, COUNT(*) AS count FROM tasks WHERE color IN ('blue', 'green', 'yellow', 'red') GROUP BY color")
-    fun getTaskCountByColor(): List<ColorCount>
+    fun getTaskCountByColor(): LiveData<List<ColorCount>>
 
     @Query("SELECT COUNT(*) FROM tasks WHERE isCompleted = 1")
-    fun getCompletedTaskCount(): Int
+    fun getCompletedTaskCount(): LiveData<Int>
 
     @Query("SELECT COUNT(*) FROM tasks WHERE isCompleted = 0")
-    fun getIncompleteTaskCount(): Int
+    fun getIncompleteTaskCount(): LiveData<Int>
+
+    @Query("SELECT COUNT(*) FROM tasks WHERE priority = 1")
+    fun getFirstPriorCount(): LiveData<Int>
+
+    @Query("SELECT COUNT(*) FROM tasks WHERE priority = 2")
+    fun getSecondPriorCount(): LiveData<Int>
+
+    @Query("SELECT COUNT(*) FROM tasks WHERE priority = 3")
+    fun getThirdPriorCount(): LiveData<Int>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTask(task: Task)

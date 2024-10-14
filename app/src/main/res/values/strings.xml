@@ -25,4 +25,7 @@
     <string name="priority_by_tasks_text">Priority by tasks</string>
     <string name="description_task_text">Description</string>
     <string name="version_text" translatable="false">PlanIt for android v1.0</string>
+    <string name="completed_text">Completed</string>
+    <string name="unfulfilled_text">Unfulfilled</string>
+    <string name="no_information_text">No information</string>
 </resources>

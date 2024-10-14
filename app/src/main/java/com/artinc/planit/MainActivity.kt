@@ -95,6 +95,10 @@ class MainActivity : AppCompatActivity() {
                     val statisticsIntent = Intent(this, StatisticsActivity::class.java)
                     startActivity(statisticsIntent)
                 }
+                R.id.nav_sett -> {
+                    val settingsIntent = Intent(this, SettingsActivity::class.java)
+                    startActivity(settingsIntent)
+                }
             }
             drawerLayout.closeDrawers()  // Закрытие меню после выбора
             true
@@ -118,13 +122,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 drawerLayout.closeDrawer(navigationView)
             }
-        }
-
-        // Открытие настроек
-        val settingsIconBtn = findViewById<ImageButton>(R.id.settingsBtn)
-        settingsIconBtn.setOnClickListener {
-            val settingsIntent = Intent(this, SettingsActivity::class.java)
-            startActivity(settingsIntent)
         }
     }
 
@@ -156,10 +153,15 @@ class MainActivity : AppCompatActivity() {
 
         // Добавляем новые элементы с датами в меню
         dates.forEach { date ->
-            menu.add(dynamicGroupId, Menu.NONE, Menu.NONE, date)
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val in_date = inputFormat.parse(date)
+            val new_date = outputFormat.format(in_date!!)
+
+            menu.add(dynamicGroupId, Menu.NONE, Menu.NONE, new_date)
                 .setOnMenuItemClickListener {
                     // Обрабатываем клик по элементу даты
-                    onDateSelected(date)
+                    onDateSelected(new_date)
                     true
                 }
         }
@@ -174,7 +176,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun convertDateToMillis(dateString: String): Long {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val date = dateFormat.parse(dateString) ?: throw IllegalArgumentException("Invalid date format")
         return date.time
     }

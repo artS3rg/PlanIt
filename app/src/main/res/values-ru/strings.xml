@@ -25,4 +25,7 @@
     <string name="the_busiest_day_text">Самый загруженный день</string>
     <string name="priority_by_tasks_text">Приоритетность по задачам</string>
     <string name="description_task_text">Описание</string>
+    <string name="completed_text">Выполненные</string>
+    <string name="unfulfilled_text">Невыполненные</string>
+    <string name="no_information_text">Нет информации</string>
 </resources>
