@@ -13,7 +13,7 @@ interface TaskDao {
     @Query("SELECT * FROM tasks WHERE createdAt BETWEEN :startOfDay AND :endOfDay ORDER BY isCompleted ASC, priority DESC")
     fun getTasksByDate(startOfDay: Long, endOfDay: Long): LiveData<List<Task>>
 
-    @Query("SELECT DISTINCT STRFTIME('%Y-%m-%d', createdAt / 1000, 'unixepoch') FROM tasks ORDER BY createdAt DESC")
+    @Query("SELECT DISTINCT STRFTIME('%d-%m-%Y', createdAt / 1000, 'unixepoch', 'localtime') FROM tasks ORDER BY createdAt DESC")
     fun getAllTaskDates(): LiveData<List<String>>
 
     @Query("SELECT createdAt FROM tasks GROUP BY createdAt ORDER BY COUNT(*) DESC LIMIT 1")

@@ -16,6 +16,7 @@ import com.artinc.planit.data.TaskViewModelFactory
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -82,10 +83,38 @@ class StatisticsActivity : AppCompatActivity() {
         }
         taskChart.startAnimation()
 
-        taskViewModel.getBusiestDay().observe(this) { long ->
-            val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-            if (long != null) {
-                findViewById<TextView>(R.id.highestTaskDay).text = sdf.format(Date(long))
+        taskViewModel.getBusiestDay().observe(this) { timestamp ->
+            timestamp?.let {
+                // Инициализируем объект Calendar и устанавливаем время
+                val calendar = Calendar.getInstance().apply { timeInMillis = timestamp }
+
+                // Получаем день, месяц и год
+                val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+                val monthNumber = calendar.get(Calendar.MONTH) // от 0 до 11
+                val year = calendar.get(Calendar.YEAR)
+
+                // Получаем название месяца из strings.xml на основе локализации
+                val monthName = when (monthNumber) {
+                    Calendar.JANUARY -> getString(R.string.month_january)
+                    Calendar.FEBRUARY -> getString(R.string.month_february)
+                    Calendar.MARCH -> getString(R.string.month_march)
+                    Calendar.APRIL -> getString(R.string.month_april)
+                    Calendar.MAY -> getString(R.string.month_may)
+                    Calendar.JUNE -> getString(R.string.month_june)
+                    Calendar.JULY -> getString(R.string.month_july)
+                    Calendar.AUGUST -> getString(R.string.month_august)
+                    Calendar.SEPTEMBER -> getString(R.string.month_september)
+                    Calendar.OCTOBER -> getString(R.string.month_october)
+                    Calendar.NOVEMBER -> getString(R.string.month_november)
+                    Calendar.DECEMBER -> getString(R.string.month_december)
+                    else -> ""
+                }
+
+                // Форматируем строку как "день месяц год"
+                val formattedDate = "$dayOfMonth $monthName $year"
+
+                // Устанавливаем отформатированную дату в TextView
+                findViewById<TextView>(R.id.highestTaskDay).text = formattedDate
             }
         }
 

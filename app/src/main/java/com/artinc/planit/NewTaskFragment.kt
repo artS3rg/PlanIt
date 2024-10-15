@@ -84,9 +84,6 @@ class NewTaskFragment : BottomSheetDialogFragment() {
             val title = taskTitle.text.toString()
             val description = taskDescription.text.toString()
 
-            val calendar = Calendar.getInstance() // Получаем текущую дату и время
-            val time = calendar.timeInMillis // Получаем миллисекунды
-
             if (title.isNotBlank() && description.isNotBlank()) {
                 // Создаем новую задачу
                 val newTask = Task(
@@ -94,7 +91,7 @@ class NewTaskFragment : BottomSheetDialogFragment() {
                     description = description,
                     priority = selectedPriority,
                     color = selectedColor,
-                    createdAt = time
+                    //createdAt = time
                 )
 
                 // Сохраняем задачу через ViewModel (например)

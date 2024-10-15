@@ -1,11 +1,12 @@
 package com.artinc.planit.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.distinctUntilChanged
 import com.artinc.planit.Task
 
 class TaskRepository(private val taskDao: TaskDao) {
     fun getTasksByDate(startOfDay: Long, endOfDay: Long): LiveData<List<Task>> {
-        return taskDao.getTasksByDate(startOfDay, endOfDay)
+        return taskDao.getTasksByDate(startOfDay, endOfDay).distinctUntilChanged()
     }
 
     fun getAllTaskDates(): LiveData<List<String>> {
