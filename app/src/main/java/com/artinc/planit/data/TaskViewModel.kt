@@ -73,6 +73,7 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
         }
     }
 
+    // Метод обновления задачи
     fun updateTask(task: Task) {
         viewModelScope.launch {
             repository.updateTask(task)

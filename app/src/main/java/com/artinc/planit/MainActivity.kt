@@ -27,96 +27,79 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
-
     private var bottomSheetNewTask: NewTaskFragment? = null
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var taskAdapter: TaskAdapter
     private lateinit var taskViewModel: TaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Загружаем настройки перед установкой макета
-        val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
-        val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
-
-        // Устанавливаем тему до вызова setContentView
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-
         super.onCreate(savedInstanceState)
+
+        // Установка темы приложения
+        setAppTheme()
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        setupWindowInsets()
+
+        setupViewModel()
+        setupRecyclerView()
+        setupObservers()
+        setupNavigationDrawer()
+        setupAddTaskButton()
+    }
+
+    private fun setAppTheme() {
+        val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
+        val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
+        AppCompatDelegate.setDefaultNightMode(if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+    }
+
+    private fun setupWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
 
+    private fun setupViewModel() {
         val repository = TaskRepository(TaskDatabase.getDatabase(this).taskDao())
         val viewModelFactory = TaskViewModelFactory(repository)
         taskViewModel = ViewModelProvider(this, viewModelFactory)[TaskViewModel::class.java]
+    }
 
-        // Работа со списком
-        // Инициализация RecyclerView
+    private fun setupRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        // Инициализация TaskAdapter
-        taskAdapter = TaskAdapter(emptyList(), taskViewModel) { task ->
-            // Обработка нажатия на задачу
-            openTaskDetails(task)
-        }
+        taskAdapter = TaskAdapter(emptyList(), taskViewModel) { task -> openTaskDetails(task) }
         recyclerView.adapter = taskAdapter
+    }
 
-        // Получение ViewModel
-        // Наблюдение за изменениями списка задач
+    private fun setupObservers() {
         taskViewModel.getTasksByDate(System.currentTimeMillis()).observe(this) { tasks ->
             taskAdapter.updateTasks(tasks)
             findViewById<LinearLayout>(R.id.start_text).isVisible = tasks.isEmpty()
         }
-        // Загрузка всех дат (для боковой панели)
-        taskViewModel.getAllTaskDates().observe(this) { dates ->
-            // Здесь вы можете обновить боковую панель (например, с помощью NavigationView)
-            updateSidePanel(dates)
-        }
-        //
 
-        // Работа с меню
+        taskViewModel.getAllTaskDates().observe(this) { dates -> updateSidePanel(dates) }
+    }
+
+    private fun setupNavigationDrawer() {
         drawerLayout = findViewById(R.id.drawer_layout)
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
-        val menuIconBtn = findViewById<ImageButton>(R.id.menuBtn)
 
-        // Обработка кликов по элементам меню
-        navigationView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_stat -> {
-                    val statisticsIntent = Intent(this, StatisticsActivity::class.java)
-                    startActivity(statisticsIntent)
-                }
-                R.id.nav_sett -> {
-                    val settingsIntent = Intent(this, SettingsActivity::class.java)
-                    startActivity(settingsIntent)
-                }
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_stat -> startActivity(Intent(this, StatisticsActivity::class.java))
+                R.id.nav_sett -> startActivity(Intent(this, SettingsActivity::class.java))
             }
-            drawerLayout.closeDrawers()  // Закрытие меню после выбора
+            drawerLayout.closeDrawers()
             true
         }
-        //
 
-        // Добавление новой задачи
-        val addBtn = findViewById<ImageButton>(R.id.addTask)
-        addBtn.setOnClickListener {
-            if (bottomSheetNewTask == null) {
-                bottomSheetNewTask = NewTaskFragment()
-            }
-            bottomSheetNewTask?.show(supportFragmentManager, bottomSheetNewTask?.tag)
-        }
-        //
-
-        // Открытие меню
-        menuIconBtn.setOnClickListener {
+        findViewById<ImageButton>(R.id.menuBtn).setOnClickListener {
             if (!drawerLayout.isDrawerOpen(navigationView)) {
                 drawerLayout.openDrawer(navigationView)
             } else {
@@ -125,50 +108,43 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Обработчик кнопки назад
-    override fun onBackPressed() {
-        // Проверяем, открыт ли BottomSheetDialogFragment
-        if (bottomSheetNewTask?.isVisible == true) {
-            bottomSheetNewTask?.dismiss() // Закрываем его
-        } else {
-            super.onBackPressed() // Иначе вызываем стандартное поведение
+    private fun setupAddTaskButton() {
+        findViewById<ImageButton>(R.id.addTask).setOnClickListener {
+            if (bottomSheetNewTask == null) {
+                bottomSheetNewTask = NewTaskFragment()
+            }
+            bottomSheetNewTask?.show(supportFragmentManager, bottomSheetNewTask?.tag)
         }
     }
 
-    // Открытие BottomSheet с полной информацией о задаче
+    override fun onBackPressed() {
+        if (bottomSheetNewTask?.isVisible == true) {
+            bottomSheetNewTask?.dismiss()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun openTaskDetails(task: Task) {
         val bottomSheet = TaskFragment.newInstance(task)
         bottomSheet.show(supportFragmentManager, "TaskDetails")
     }
 
-    // Обновление боковой панели с датами
     private fun updateSidePanel(dates: List<String>) {
-        // Получаем ссылку на NavigationView
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         val menu = navigationView.menu
+        val dynamicGroupId = 1
 
-        // Удаляем все предыдущие динамические элементы (если они были)
-        val dynamicGroupId = 1 // Идентификатор группы для дат (не совпадает с id других элементов)
         menu.removeGroup(dynamicGroupId)
-
-        // Добавляем новые элементы с датами в меню
         dates.forEach { date ->
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-            val in_date = inputFormat.parse(date)
-            val new_date = outputFormat.format(in_date!!)
-
-            menu.add(dynamicGroupId, Menu.NONE, Menu.NONE, new_date)
-                .setOnMenuItemClickListener {
-                    // Обрабатываем клик по элементу даты
-                    onDateSelected(new_date)
-                    true
-                }
+            menu.add(dynamicGroupId, Menu.NONE, Menu.NONE, date).setOnMenuItemClickListener {
+                onDateSelected(date)
+                true
+            }
         }
     }
 
     private fun onDateSelected(date: String) {
-        // Реализуйте логику для загрузки задач, связанных с выбранной датой
         taskViewModel.getTasksByDate(convertDateToMillis(date)).observe(this) { tasks ->
             findViewById<LinearLayout>(R.id.start_text).isVisible = tasks.isEmpty()
             taskAdapter.updateTasks(tasks)
@@ -176,8 +152,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun convertDateToMillis(dateString: String): Long {
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val date = dateFormat.parse(dateString) ?: throw IllegalArgumentException("Invalid date format")
-        return date.time
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.parse(dateString)?.time ?: throw IllegalArgumentException("Invalid date format")
     }
 }

@@ -3,6 +3,7 @@ package com.artinc.planit
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.Calendar
+import java.util.TimeZone
 
 class NewTaskFragment : BottomSheetDialogFragment() {
     private var selectedPriority: Int = 1 // По умолчанию приоритет 1
@@ -83,7 +85,7 @@ class NewTaskFragment : BottomSheetDialogFragment() {
             val description = taskDescription.text.toString()
 
             val calendar = Calendar.getInstance() // Получаем текущую дату и время
-            val createdAt = calendar.timeInMillis // Получаем миллисекунды
+            val time = calendar.timeInMillis // Получаем миллисекунды
 
             if (title.isNotBlank() && description.isNotBlank()) {
                 // Создаем новую задачу
@@ -92,11 +94,16 @@ class NewTaskFragment : BottomSheetDialogFragment() {
                     description = description,
                     priority = selectedPriority,
                     color = selectedColor,
-                    createdAt = createdAt
+                    createdAt = time
                 )
 
                 // Сохраняем задачу через ViewModel (например)
                 taskViewModel.addTask(newTask)
+
+                selectedColor = "blue"
+                selectedPriority = 1
+                taskTitle.text = null
+                taskDescription.text = null
 
                 // Закрываем BottomSheet
                 dismiss()
@@ -120,8 +127,6 @@ class NewTaskFragment : BottomSheetDialogFragment() {
     // Обновление приоритета и соответствующих звездочек
     private fun updatePriority(priority: Int, button1: ImageButton, button2: ImageButton, button3: ImageButton) {
         selectedPriority = priority
-
-        // Устанавливаем нужные иконки для отображения выбора приоритета
         button1.setBackgroundResource(if (priority >= 1) R.drawable.star else R.drawable.star_outline)
         button2.setBackgroundResource(if (priority >= 2) R.drawable.star else R.drawable.star_outline)
         button3.setBackgroundResource(if (priority >= 3) R.drawable.star else R.drawable.star_outline)
