@@ -37,7 +37,7 @@
             android:hint="@string/enter_the_title"
             android:background="@drawable/rounded_edittext_bg"
             android:padding="10dp"
-            android:inputType="text"
+            android:inputType="textCapSentences"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:maxLength="30"/>
@@ -87,7 +87,7 @@
             android:hint="@string/enter_the_description"
             android:background="@drawable/rounded_edittext_bg"
             android:padding="10dp"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine|textCapSentences"
             android:minLines="1"
             android:scrollbars="vertical"
             android:overScrollMode="always"
